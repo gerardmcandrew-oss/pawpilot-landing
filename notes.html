@@ -335,7 +335,7 @@
           <li class="tl-stage tl-next">
             <p class="tl-step">Next</p>
             <h3>Device check and physical phone test</h3>
-            <p>I have used the app in Chrome on a desktop computer and on an iPhone 16. Step-by-step results on the phone have not been recorded yet, so a full workflow test on the iPhone, written up using the guidance in section L, is still to be completed.</p>
+            <p>I have used the app in Chrome on a desktop computer and in Safari on an iPhone 16, and written a 40-step iPhone test plan covering both sites (section L, step 8). The results of that plan have not been recorded yet.</p>
           </li>
         </ol>
       </section>
@@ -344,10 +344,11 @@
       <section class="n-section" id="testing" aria-labelledby="testing-title">
         <p class="n-kicker">L</p>
         <h2 id="testing-title">Alpha testing and improvement record</h2>
-        <p>A record of how I tested and improved the alpha. I specified the checks in my prompts and reviewed every result; the automated checks themselves were run by the AI tool. The stage-by-stage history is in section K; this section records the testing method and the two main issues in detail. Each statement is marked as one of three types:</p>
-        <ul style="list-style:none;padding:0"><li><span class="status status-pass">Verified</span> Confirmed by code review or automated browser test.</li><li><span class="status status-ill">Illustrative</span> Example wording for a physical-phone test.</li><li><span class="status status-open">Not recorded</span> Device used, but the step-by-step result has not been written up yet.</li></ul>
+        <p>My record of how I reviewed, tested and improved the alpha, in the order it happened. I specified the checks in my prompts and reviewed every result; the automated checks were run by the AI tool. The stage-by-stage history is in section K.</p>
+        <ul style="list-style:none;padding:0"><li><span class="status status-pass">Verified</span> Confirmed by code review or automated browser test.</li><li><span class="status status-ill">Illustrative</span> Example wording, not a recorded result.</li><li><span class="status status-open">To be recorded</span> Planned on the iPhone 16; result not written up yet.</li></ul>
 
-        <h3>Test objective</h3>
+        <h3 class="l-step"><span>1</span>Test objective</h3>
+
         <p>Check whether daycare staff can use the application on a phone to:</p>
         <ul>
           <li>Find a day with available places.</li>
@@ -360,17 +361,19 @@
           <li>Refresh the browser and confirm persistence.</li>
         </ul>
 
-        <h3>Test environment</h3>
+
+        <h3 class="l-step"><span>2</span>Test environment</h3>
         <div class="facts" role="list">
           <div class="fact" role="listitem"><b>Application</b><span><a href="https://gerardmcandrew-oss.github.io/waggy-tails-demo/" target="_blank" rel="noopener">gerardmcandrew-oss.github.io/waggy-tails-demo<span class="sr-only"> (opens in a new tab)</span></a></span></div>
+          <div class="fact" role="listitem"><b>Phone for physical testing</b><span>iPhone 16, Safari</span></div>
+          <div class="fact" role="listitem"><b>Desktop</b><span>Chrome</span></div>
           <div class="fact" role="listitem"><b>Illustrative screen size</b><span>375px wide</span></div>
-          <div class="fact" role="listitem"><b>Browser</b><span>Mobile Safari or Chrome</span></div>
-          <div class="fact" role="listitem"><b>Devices I used</b><span>Chrome on a desktop computer; iPhone 16</span></div>
           <div class="fact" role="listitem"><b>Data</b><span>Fictional sample records</span></div>
         </div>
         <p><strong>Status:</strong> Worked testing scenario based on the application requirements and earlier technical reviews. Physical-device outcomes are not independently verified.</p>
 
-        <h3>My testing notes</h3>
+        <h3 class="l-step"><span>3</span>My testing notes</h3>
+
         <div class="callout">
           <p>During development, the Waggy Tails application went through several rounds of technical review. The focus was on whether the three main features worked together and whether staff could complete everyday tasks without unnecessary steps.</p>
           <p>The initial review covered the booking calendar, daily capacity limits, vaccination warnings, activity recording and the owner-facing Pupdate view. The core features were present, but two areas needed further attention.</p>
@@ -382,14 +385,14 @@
           <p><strong>Testing method:</strong> These findings came from source-code review and development iterations. Physical-device testing remains a separate verification step.</p>
         </div>
 
-        <h3>Example: What I tried <span class="status status-ill">Illustrative</span></h3>
-        <div class="callout"><p>“I started with the booking calendar and selected a day that was already full. I wanted to see whether the system would prevent another booking and offer another date. I then moved to Today, checked the vaccination warnings and tried recording an activity for an eligible dog. Finally, I opened Pupdate to see whether the activity appeared in the dog's daily notes.”</p></div>
-        <p class="note">This shows how a test would be recorded. It is not a claim that a physical test was completed.</p>
 
-        <h3>Issue 1: Alternative booking dates <span class="status status-pass">Verified</span></h3>
-        <p>When I reviewed the first version, I found a mismatch between the alternative-date search and the calendar navigation. The search could consider dates up to 60 days ahead, while the calendar navigation was restricted to four weeks. This could result in a suggested date that the user could not easily reach.</p>
-        <p><strong>Why this matters.</strong> Staff need to act on a suggested date immediately, particularly when taking bookings while dealing with dogs and owners.</p>
-        <p><strong>Improvement I requested:</strong> suggested dates must be reachable, calendar navigation must stay consistent, the displayed date and booking date must match, and the app must explain why a date was offered.</p>
+        <h3 class="l-step"><span>4</span>Problems found during the technical review</h3>
+        <h4 class="sub-h">Problem 1: The suggested booking date and the calendar didn’t line up <span class="status status-pass">Verified fixed in code</span></h4>
+        <div class="callout">
+          <p>When a day was full, the app searched for the next free date and suggested it. That search could look up to 60 days ahead, but the calendar only let you go forward four weeks. So the app could suggest a date you couldn’t get to.</p>
+          <p>That’s a real problem at a busy front desk. Someone taking a booking is often on the phone with an owner while keeping an eye on the dogs. If the app suggests a date, they need to be able to tap it and book it straight away, not hunt for it.</p>
+          <p>I asked for the suggested date to be tappable, for the calendar to jump to that date, and for the booking to go on the date shown. Later development prompts dealt with this, and the final code review suggests it’s fixed. I still need to confirm it on the phone.</p>
+        </div>
         <p><strong>Implemented correction (from the current source).</strong></p>
         <ul>
           <li>The booking window is defined once as four weeks (today plus 27 days). Alternative dates are only searched inside that window, and a booking beyond it is refused with a reason.</li>
@@ -397,65 +400,145 @@
           <li>Selecting an alternative moves the calendar to the right week, highlights that day and shows a notice that the date has changed.</li>
           <li>The Book button names the full date it will book. If that no longer matches the selected day, the booking is refused.</li>
         </ul>
-
-        <h3>Issue 2: Save confirmation <span class="status status-pass">Verified</span></h3>
-        <p>In the same review, I identified a risk that the application could show a successful booking or activity update even if localStorage failed. The storage function could catch an error while the calling function still continued to show success.</p>
-        <p><strong>Why this matters.</strong> Staff must be able to trust that a booking or daily activity has actually been recorded.</p>
-        <p><strong>Improvement I requested:</strong> storage operations report success or failure, success messages appear only when the save succeeds, failure gets clear feedback, and nothing gives a misleading confirmation.</p>
+        <h4 class="sub-h">Problem 2: The app could say “saved” when it hadn’t <span class="status status-pass">Verified fixed in code</span></h4>
+        <div class="callout">
+          <p>Bookings and activities are saved in the browser’s local storage. In an earlier version, if that save failed, the error was caught but the code carried on and showed a success message anyway.</p>
+          <p>Staff would think a booking or activity was recorded when it wasn’t. In a real business, that’s how a dog turns up on a day with no booking.</p>
+          <p>I asked for the save function to report whether it worked, and for the success message to appear only if it did. Otherwise the app should show an error. The final code review suggests this is fixed. I haven’t forced a save to fail to test it, so that’s still open.</p>
+        </div>
         <p><strong>Implemented correction (from the current source).</strong></p>
         <ul>
           <li>The save function writes the data, reads it back, and reports success only if the stored copy matches.</li>
           <li>Every change (booking, cancellation, check-in, activity, undo, reset and sample-date refresh) returns whether it was saved.</li>
           <li>Confirmations end with “Saved.” only when the save worked. Otherwise they say “Not saved: this browser is blocking storage, so this will be lost on refresh.”, and a warning banner explains the risk.</li>
         </ul>
+        <p class="note">The automated test suite simulated a storage failure in the browser and confirmed the “Not saved” messages. That was run by the AI tool, not on my phone, so my own check of this remains open.</p>
 
-        <h3>Example: What confused me <span class="status status-ill">Illustrative</span></h3>
+        <h3 class="l-step"><span>5</span>Other improvements I asked for</h3>
+        <p>These came up during the reviews. Some are things to improve and some are things I still need to check. They’re not all confirmed bugs.</p>
+        <ul>
+          <li>Make the dog selector easier to use on small screens.</li>
+          <li>Make vaccinations that are about to expire stand out more.</li>
+          <li>Tell the user clearly why a dog can’t be booked or checked in.</li>
+          <li>Make sure Pupdate shows the right owner’s information.</li>
+          <li>Make it clear Pupdate is a demo and not a secure login.</li>
+          <li>Keep the sample dates current so the demo doesn’t look stale if it’s opened weeks later.</li>
+          <li>Run through the whole flow, from booking to the owner update.</li>
+          <li>Check the layout at 320px, 375px and 390px widths.</li>
+        </ul>
+
+        <h3 class="l-step"><span>6</span>Examples of how a phone test would be written up</h3>
+        <h4 class="sub-h">Example: What I tried <span class="status status-ill">Illustrative</span></h4>
+        <div class="callout"><p>“I started with the booking calendar and selected a day that was already full. I wanted to see whether the system would prevent another booking and offer another date. I then moved to Today, checked the vaccination warnings and tried recording an activity for an eligible dog. Finally, I opened Pupdate to see whether the activity appeared in the dog's daily notes.”</p></div>
+        <p class="note">This shows how a test would be recorded. It is not a claim that a physical test was completed.</p>
+
+
+        <h4 class="sub-h">Example: What confused me <span class="status status-ill">Illustrative</span></h4>
         <div class="callout"><p>“The suggested alternative date was not always easy to relate to the visible calendar. If I was using the app quickly, I would expect the calendar to move directly to that date instead of making me search for it.”</p></div>
         <p class="note">An illustrative observation based on the earlier confirmed code issue, not a recorded user comment.</p>
 
-        <h3>Example: What changed <span class="status status-pass">Verified</span></h3>
-        <p>My improvement prompts asked for booking-date consistency and honest storage confirmation. I checked both corrections in the current source; they are described under Issue 1 and Issue 2 above. The calendar now moves directly to a selected suggestion, which addresses the confusion described in the example.</p>
 
-        <h3>Retest procedure</h3>
+        <h3 class="l-step"><span>7</span>Retest procedure</h3>
+
         <p>I asked for each of these steps to be tested after every change. The outcomes below come from the automated browser test suite (headless Chrome at simulated phone widths), run by the AI tool against the same code as the live demo, and reviewed by me. I have used the app on an iPhone 16, but I have not yet recorded the outcome of each step on the phone.</p>
         <div class="table-wrap">
           <table>
             <caption class="sr-only">Retest steps and outcomes</caption>
             <thead><tr><th scope="col">Step</th><th scope="col">Automated browser test (run by AI tool, reviewed by me)</th><th scope="col">Physical phone (iPhone 16)</th></tr></thead>
             <tbody>
-              <tr><td>Reset fictional sample data.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
-              <tr><td>Select a fully booked day.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
-              <tr><td>Attempt another booking.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
-              <tr><td>Confirm the capacity restriction (count stays at 40).</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
-              <tr><td>Select the suggested alternative date.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
-              <tr><td>Confirm the calendar displays that date.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
-              <tr><td>Complete an eligible booking.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
-              <tr><td>Refresh and confirm persistence.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
-              <tr><td>Check in an eligible dog.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
-              <tr><td>Record Played.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
-              <tr><td>Open Pupdate and check for the activity.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
+              <tr><td>Reset fictional sample data.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">To be recorded</span></td></tr>
+              <tr><td>Select a fully booked day.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">To be recorded</span></td></tr>
+              <tr><td>Attempt another booking.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">To be recorded</span></td></tr>
+              <tr><td>Confirm the capacity restriction (count stays at 40).</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">To be recorded</span></td></tr>
+              <tr><td>Select the suggested alternative date.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">To be recorded</span></td></tr>
+              <tr><td>Confirm the calendar displays that date.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">To be recorded</span></td></tr>
+              <tr><td>Complete an eligible booking.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">To be recorded</span></td></tr>
+              <tr><td>Refresh and confirm persistence.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">To be recorded</span></td></tr>
+              <tr><td>Check in an eligible dog.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">To be recorded</span></td></tr>
+              <tr><td>Record Played.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">To be recorded</span></td></tr>
+              <tr><td>Open Pupdate and check for the activity.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">To be recorded</span></td></tr>
             </tbody>
           </table>
         </div>
 
-        <h3>Testing lesson</h3>
+
+        <h3 class="l-step"><span>8</span>My iPhone 16 test plan</h3>
+        <p>The 40 checks I set out to carry out in Safari on my iPhone 16, covering both the Waggy Tails demo and this PawPilot site. Results will be added as I record them; none are claimed yet.</p>
+          <details class="plan-group" open>
+            <summary>Mobile layout and navigation <span class="note">Tests 1 to 5</span></summary>
+            <div class="table-wrap"><table>
+              <caption class="sr-only">Mobile layout and navigation tests</caption>
+              <thead><tr><th scope="col" class="num">Test</th><th scope="col">What I will check on the iPhone 16</th><th scope="col">Result</th></tr></thead>
+              <tbody><tr><td class="num">1</td><td>Open Waggy Tails in Safari and check it loads properly.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">2</td><td>Check text, buttons and cards fit the screen with no sideways scrolling.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">3</td><td>Move between Bookings, Today and Pupdate.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">4</td><td>Check buttons and dropdowns are easy to use with one hand.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">5</td><td>Turn the phone to landscape and check the layout still works.</td><td><span class="status status-open">To be recorded</span></td></tr></tbody>
+            </table></div>
+          </details>
+          <details class="plan-group">
+            <summary>Bookings <span class="note">Tests 6 to 13</span></summary>
+            <div class="table-wrap"><table>
+              <caption class="sr-only">Bookings tests</caption>
+              <thead><tr><th scope="col" class="num">Test</th><th scope="col">What I will check on the iPhone 16</th><th scope="col">Result</th></tr></thead>
+              <tbody><tr><td class="num">6</td><td>Open the weekly calendar and check booking numbers and capacity are shown correctly.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">7</td><td>Pick a day with spaces left and book an eligible dog.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">8</td><td>Try to book another dog on a day that’s already at its 40-dog limit.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">9</td><td>Check the app stops the overbooking and the message makes sense.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">10</td><td>Tap the suggested alternative date and check the calendar jumps to it.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">11</td><td>Book on the alternative date and check that day’s total goes up, not a different day’s.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">12</td><td>Try to book a dog whose vaccinations have expired and check it’s blocked.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">13</td><td>Refresh Safari and check the bookings are still there.</td><td><span class="status status-open">To be recorded</span></td></tr></tbody>
+            </table></div>
+          </details>
+          <details class="plan-group">
+            <summary>Today and vaccination checks <span class="note">Tests 14 to 20</span></summary>
+            <div class="table-wrap"><table>
+              <caption class="sr-only">Today and vaccination checks tests</caption>
+              <thead><tr><th scope="col" class="num">Test</th><th scope="col">What I will check on the iPhone 16</th><th scope="col">Result</th></tr></thead>
+              <tbody><tr><td class="num">14</td><td>Open Today and check the right dogs are listed.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">15</td><td>Find a vaccination due to expire within 14 days and check it shows an amber warning.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">16</td><td>Find an expired vaccination and check it shows a red warning.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">17</td><td>Try to check in a dog with expired vaccinations and check the app won’t allow it.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">18</td><td>Check in an eligible dog and check its status changes.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">19</td><td>Log Ate, Walked, Played and Napped for an eligible dog.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">20</td><td>Refresh Safari and check the check-in and activities are still saved.</td><td><span class="status status-open">To be recorded</span></td></tr></tbody>
+            </table></div>
+          </details>
+          <details class="plan-group">
+            <summary>Pupdate <span class="note">Tests 21 to 24</span></summary>
+            <div class="table-wrap"><table>
+              <caption class="sr-only">Pupdate tests</caption>
+              <thead><tr><th scope="col" class="num">Test</th><th scope="col">What I will check on the iPhone 16</th><th scope="col">Result</th></tr></thead>
+              <tbody><tr><td class="num">21</td><td>Open Pupdate and check the activities show against the right dog.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">22</td><td>Switch between the sample owners and check each one only sees their own dog.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">23</td><td>Go back to Today, log another activity, and check Pupdate updates.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">24</td><td>Check it’s obvious the owner view is a demo, not a real secure login.</td><td><span class="status status-open">To be recorded</span></td></tr></tbody>
+            </table></div>
+          </details>
+          <details class="plan-group">
+            <summary>Reliability <span class="note">Tests 25 to 29</span></summary>
+            <div class="table-wrap"><table>
+              <caption class="sr-only">Reliability tests</caption>
+              <thead><tr><th scope="col" class="num">Test</th><th scope="col">What I will check on the iPhone 16</th><th scope="col">Result</th></tr></thead>
+              <tbody><tr><td class="num">25</td><td>Switch between all three views a few times and check nothing changes or goes missing.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">26</td><td>Close Safari, reopen the app and check saved information is still there.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">27</td><td>Try an incomplete or invalid booking and check the error message is clear.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">28</td><td>Check success messages only appear once something has actually saved.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">29</td><td>If there’s a reset option, reset the sample data and check the original records come back.</td><td><span class="status status-open">To be recorded</span></td></tr></tbody>
+            </table></div>
+          </details>
+          <details class="plan-group">
+            <summary>PawPilot landing page <span class="note">Tests 30 to 40</span></summary>
+            <div class="table-wrap"><table>
+              <caption class="sr-only">PawPilot landing page tests</caption>
+              <thead><tr><th scope="col" class="num">Test</th><th scope="col">What I will check on the iPhone 16</th><th scope="col">Result</th></tr></thead>
+              <tbody><tr><td class="num">30</td><td>Open the PawPilot landing page on the iPhone 16.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">31</td><td>Check the headline and main button are visible and easy to read.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">32</td><td>Scroll the whole page and look for overlapping text, broken images or sideways scrolling.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">33</td><td>Tap Features, How it works and Pricing and check each one goes to the right section.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">34</td><td>Check How it works has exactly three steps.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">35</td><td>Tap Try the demo and check it opens Waggy Tails.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">36</td><td>Check the €149 setup fee and €39 monthly price are clearly shown.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">37</td><td>Fill in the waiting-list form with made-up details and check the thank-you message doesn’t claim anything that didn’t happen.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">38</td><td>Check the form doesn’t send or store anything entered.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">39</td><td>Tap Behind the build in the footer and check notes.html opens.</td><td><span class="status status-open">To be recorded</span></td></tr><tr><td class="num">40</td><td>Check the notes page reads well on the iPhone 16 and covers the original hunch, the product research, the development journey and this testing record.</td><td><span class="status status-open">To be recorded</span></td></tr></tbody>
+            </table></div>
+          </details>
+
+        <h3 class="l-step"><span>9</span>Main issue and what I learned</h3>
+        <div class="callout">
+          <p>The biggest usability problem was the mismatch between the suggested date and the calendar. The idea was right: when a day is full, help staff find another one. But the app was suggesting dates staff couldn’t get to. The search worked, but the screen didn’t let anyone act on what it found. The fix was to link the suggestion to the calendar so you can tap it and finish the booking.</p>
+          <p>The second lesson was about saving. A “saved” message is worse than useless if nothing was saved, because people trust it and move on.</p>
+          <p>Both problems fed directly into the later prompts and fixes.</p>
+        </div>
+        <h4 class="sub-h">Testing lesson</h4>
         <div class="callout"><p>“The review highlighted how a small inconsistency can affect an otherwise useful workflow. A booking suggestion is only helpful if staff can immediately act on it. The same applies to saving information. Staff need to know that an update has been recorded, particularly when they are working quickly.”</p></div>
 
-        <h3>Physical-phone testing guidance</h3>
+
+        <h3 class="l-step"><span>10</span>Physical-phone test record</h3>
+
         <p>A completed real-device test should record the following. I have filled in the devices I used; the remaining fields are left open until I record the phone results, so no physical result has been invented.</p>
         <div class="table-wrap">
           <table>
             <caption class="sr-only">Physical-phone test record template</caption>
             <tbody>
-              <tr><th scope="row">Actual phone model and browser</th><td>iPhone 16 (browser to be confirmed); Chrome on a desktop computer</td></tr>
-              <tr><th scope="row">Actions performed</th><td>To be completed</td></tr>
+              <tr><th scope="row">Actual phone model and browser</th><td>iPhone 16 with Safari; Chrome on a desktop computer</td></tr>
+              <tr><th scope="row">Actions performed</th><td>Planned: Tests 1 to 40 above. Results to be completed.</td></tr>
               <tr><th scope="row">A genuine issue or point of confusion</th><td>To be completed</td></tr>
               <tr><th scope="row">The correction made</th><td>To be completed</td></tr>
               <tr><th scope="row">The retest result</th><td>To be completed</td></tr>
             </tbody>
           </table>
         </div>
-      </section>
+            </section>
 
       <!-- M -->
       <section class="n-section" id="assessment" aria-labelledby="assessment-title">
