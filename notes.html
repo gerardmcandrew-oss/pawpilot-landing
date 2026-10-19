@@ -334,8 +334,8 @@
           </li>
           <li class="tl-stage tl-next">
             <p class="tl-step">Next</p>
-            <h3>Physical phone test</h3>
-            <p>Still to be completed: a test of the full workflow on my own phone, recorded using the guidance in section L.</p>
+            <h3>Device check and physical phone test</h3>
+            <p>I have used the app in Chrome on a desktop computer and on an iPhone 16. Step-by-step results on the phone have not been recorded yet, so a full workflow test on the iPhone, written up using the guidance in section L, is still to be completed.</p>
           </li>
         </ol>
       </section>
@@ -345,7 +345,7 @@
         <p class="n-kicker">L</p>
         <h2 id="testing-title">Alpha testing and improvement record</h2>
         <p>A record of how I tested and improved the alpha. I specified the checks in my prompts and reviewed every result; the automated checks themselves were run by the AI tool. The stage-by-stage history is in section K; this section records the testing method and the two main issues in detail. Each statement is marked as one of three types:</p>
-        <ul style="list-style:none;padding:0"><li><span class="status status-pass">Verified</span> Confirmed by code review or automated browser test.</li><li><span class="status status-ill">Illustrative</span> Example wording for a physical-phone test.</li><li><span class="status status-open">Not yet tested</span> Needs a real device.</li></ul>
+        <ul style="list-style:none;padding:0"><li><span class="status status-pass">Verified</span> Confirmed by code review or automated browser test.</li><li><span class="status status-ill">Illustrative</span> Example wording for a physical-phone test.</li><li><span class="status status-open">Not recorded</span> Device used, but the step-by-step result has not been written up yet.</li></ul>
 
         <h3>Test objective</h3>
         <p>Check whether daycare staff can use the application on a phone to:</p>
@@ -365,9 +365,22 @@
           <div class="fact" role="listitem"><b>Application</b><span><a href="https://gerardmcandrew-oss.github.io/waggy-tails-demo/" target="_blank" rel="noopener">gerardmcandrew-oss.github.io/waggy-tails-demo<span class="sr-only"> (opens in a new tab)</span></a></span></div>
           <div class="fact" role="listitem"><b>Illustrative screen size</b><span>375px wide</span></div>
           <div class="fact" role="listitem"><b>Browser</b><span>Mobile Safari or Chrome</span></div>
+          <div class="fact" role="listitem"><b>Devices I used</b><span>Chrome on a desktop computer; iPhone 16</span></div>
           <div class="fact" role="listitem"><b>Data</b><span>Fictional sample records</span></div>
         </div>
         <p><strong>Status:</strong> Worked testing scenario based on the application requirements and earlier technical reviews. Physical-device outcomes are not independently verified.</p>
+
+        <h3>My testing notes</h3>
+        <div class="callout">
+          <p>During development, the Waggy Tails application went through several rounds of technical review. The focus was on whether the three main features worked together and whether staff could complete everyday tasks without unnecessary steps.</p>
+          <p>The initial review covered the booking calendar, daily capacity limits, vaccination warnings, activity recording and the owner-facing Pupdate view. The core features were present, but two areas needed further attention.</p>
+          <p>The first was the alternative booking-date feature. The system could search further ahead than the calendar allowed the user to navigate. This was confusing because a suggested date should be something staff can immediately select. The follow-up development prompt therefore focused on making the suggested date and calendar work together.</p>
+          <p>The second issue involved saving information. The review identified a risk that the application could display a success message even if browser storage failed. This needed to be corrected because staff should be able to trust that a booking or activity has actually been saved.</p>
+          <p>Further reviews considered vaccination warnings, mobile dog selection, owner-preview clarity and the full journey from booking through to recording an activity and viewing Pupdate.</p>
+          <p>The final source review indicated that the main calendar and storage concerns had been addressed. The provisional assessment was approximately 46 to 48 out of 50, although this was not an official grade and did not replace physical-phone testing.</p>
+          <p><strong>What I learned:</strong> A feature can be technically present without being easy to use. The alternative-date issue was a good example. The system was trying to help staff find another booking date, but the navigation also needed to support that recommendation. The reviews helped focus the improvements on completing the actual staff workflow rather than simply adding more features.</p>
+          <p><strong>Testing method:</strong> These findings came from source-code review and development iterations. Physical-device testing remains a separate verification step.</p>
+        </div>
 
         <h3>Example: What I tried <span class="status status-ill">Illustrative</span></h3>
         <div class="callout"><p>“I started with the booking calendar and selected a day that was already full. I wanted to see whether the system would prevent another booking and offer another date. I then moved to Today, checked the vaccination warnings and tried recording an activity for an eligible dog. Finally, I opened Pupdate to see whether the activity appeared in the dog's daily notes.”</p></div>
@@ -404,23 +417,23 @@
         <p>My improvement prompts asked for booking-date consistency and honest storage confirmation. I checked both corrections in the current source; they are described under Issue 1 and Issue 2 above. The calendar now moves directly to a selected suggestion, which addresses the confusion described in the example.</p>
 
         <h3>Retest procedure</h3>
-        <p>I asked for each of these steps to be tested after every change. The outcomes below come from the automated browser test suite (headless Chrome at simulated phone widths), run by the AI tool against the same code as the live demo, and reviewed by me. None of these steps has yet been confirmed on a physical phone.</p>
+        <p>I asked for each of these steps to be tested after every change. The outcomes below come from the automated browser test suite (headless Chrome at simulated phone widths), run by the AI tool against the same code as the live demo, and reviewed by me. I have used the app on an iPhone 16, but I have not yet recorded the outcome of each step on the phone.</p>
         <div class="table-wrap">
           <table>
             <caption class="sr-only">Retest steps and outcomes</caption>
-            <thead><tr><th scope="col">Step</th><th scope="col">Automated browser test (run by AI tool, reviewed by me)</th><th scope="col">Physical phone</th></tr></thead>
+            <thead><tr><th scope="col">Step</th><th scope="col">Automated browser test (run by AI tool, reviewed by me)</th><th scope="col">Physical phone (iPhone 16)</th></tr></thead>
             <tbody>
-              <tr><td>Reset fictional sample data.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
-              <tr><td>Select a fully booked day.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
-              <tr><td>Attempt another booking.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
-              <tr><td>Confirm the capacity restriction (count stays at 40).</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
-              <tr><td>Select the suggested alternative date.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
-              <tr><td>Confirm the calendar displays that date.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
-              <tr><td>Complete an eligible booking.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
-              <tr><td>Refresh and confirm persistence.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
-              <tr><td>Check in an eligible dog.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
-              <tr><td>Record Played.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
-              <tr><td>Open Pupdate and check for the activity.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
+              <tr><td>Reset fictional sample data.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
+              <tr><td>Select a fully booked day.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
+              <tr><td>Attempt another booking.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
+              <tr><td>Confirm the capacity restriction (count stays at 40).</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
+              <tr><td>Select the suggested alternative date.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
+              <tr><td>Confirm the calendar displays that date.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
+              <tr><td>Complete an eligible booking.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
+              <tr><td>Refresh and confirm persistence.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
+              <tr><td>Check in an eligible dog.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
+              <tr><td>Record Played.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
+              <tr><td>Open Pupdate and check for the activity.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not recorded</span></td></tr>
             </tbody>
           </table>
         </div>
@@ -429,12 +442,12 @@
         <div class="callout"><p>“The review highlighted how a small inconsistency can affect an otherwise useful workflow. A booking suggestion is only helpful if staff can immediately act on it. The same applies to saving information. Staff need to know that an update has been recorded, particularly when they are working quickly.”</p></div>
 
         <h3>Physical-phone testing guidance</h3>
-        <p>A completed real-device test should record the following. The fields are left blank on purpose; no physical result has been invented.</p>
+        <p>A completed real-device test should record the following. I have filled in the devices I used; the remaining fields are left open until I record the phone results, so no physical result has been invented.</p>
         <div class="table-wrap">
           <table>
             <caption class="sr-only">Physical-phone test record template</caption>
             <tbody>
-              <tr><th scope="row">Actual phone model and browser</th><td>To be completed</td></tr>
+              <tr><th scope="row">Actual phone model and browser</th><td>iPhone 16 (browser to be confirmed); Chrome on a desktop computer</td></tr>
               <tr><th scope="row">Actions performed</th><td>To be completed</td></tr>
               <tr><th scope="row">A genuine issue or point of confusion</th><td>To be completed</td></tr>
               <tr><th scope="row">The correction made</th><td>To be completed</td></tr>
