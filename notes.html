@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Behind the build | PawPilot</title>
+<meta name="description" content="How the PawPilot concept developed from the Waggy Tails case: hunch, ideas, research, lean PRD, development iterations, testing and limitations.">
+<meta name="theme-color" content="#183D35">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23183D35'/%3E%3Cg fill='%23F8F6F0'%3E%3Cellipse cx='13' cy='17.5' rx='2.6' ry='3.3'/%3E%3Cellipse cx='17.6' cy='12.6' rx='2.6' ry='3.3'/%3E%3Cellipse cx='22.8' cy='12.6' rx='2.6' ry='3.3'/%3E%3Cellipse cx='27.4' cy='17.5' rx='2.6' ry='3.3'/%3E%3Cpath d='M20.2 18.6c-4 0-7.6 5.2-7.6 8.2 0 2.2 1.7 3.3 3.7 3.3 1.6 0 2.6-.8 3.9-.8s2.3.8 3.9.8c2 0 3.7-1.1 3.7-3.3 0-3-3.6-8.2-7.6-8.2z'/%3E%3C/g%3E%3Cpath d='M30.5 5.5l3.2 7.4-7.4-3.2z' fill='%23F28C78'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="logo" viewBox="0 0 40 40">
+    <rect width="40" height="40" rx="12" fill="#183D35"/>
+    <circle cx="20.2" cy="21" r="14" fill="none" stroke="#3E9C80" stroke-width="1.4" stroke-dasharray="1.6 3.2"/>
+    <g fill="#F8F6F0"><ellipse cx="13" cy="17.5" rx="2.6" ry="3.3"/><ellipse cx="17.6" cy="12.6" rx="2.6" ry="3.3"/><ellipse cx="22.8" cy="12.6" rx="2.6" ry="3.3"/><ellipse cx="27.4" cy="17.5" rx="2.6" ry="3.3"/><path d="M20.2 18.6c-4 0-7.6 5.2-7.6 8.2 0 2.2 1.7 3.3 3.7 3.3 1.6 0 2.6-.8 3.9-.8s2.3.8 3.9.8c2 0 3.7-1.1 3.7-3.3 0-3-3.6-8.2-7.6-8.2z"/></g>
+    <path d="M30.5 5.5l3.2 7.4-7.4-3.2z" fill="#F28C78"/>
+  </symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/></g></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap bar" style="flex-wrap:wrap;gap:8px 16px">
+    <a class="brand" href="index.html" aria-label="PawPilot home page">
+      <svg aria-hidden="true"><use href="#logo"/></svg>
+      <span class="wordmark">Paw<span>Pilot</span></span>
+    </a>
+    <nav aria-label="Page" style="margin-left:auto;display:flex;gap:6px;align-items:center">
+      <a class="notes-top-link" href="index.html"><svg class="i" aria-hidden="true"><use href="#i-back"/></svg>Landing page</a>
+      <a class="btn btn-secondary btn-sm" href="https://gerardmcandrew-oss.github.io/waggy-tails-demo/" target="_blank" rel="noopener">Try the demo<span class="sr-only"> (opens in a new tab)</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="notes-hero" aria-labelledby="notes-title">
+    <div class="wrap">
+      <p class="eyebrow">Development notes</p>
+      <h1 id="notes-title">Behind the build</h1>
+      <p class="lead">How the PawPilot concept developed from the Waggy Tails case.</p>
+    </div>
+  </section>
+
+  <div class="wrap notes-layout">
+    <nav class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">On this page</h2>
+      <ol>
+        <li><a href="#case">Assigned case</a></li>
+        <li><a href="#hunch">Hunch (before AI)</a></li>
+        <li><a href="#ideas">Ideas explored</a></li>
+        <li><a href="#solution">Selected solution</a></li>
+        <li><a href="#customer">Target customer</a></li>
+        <li><a href="#technology">Technology type</a></li>
+        <li><a href="#competitors">Competitor research</a></li>
+        <li><a href="#business-model">Business model</a></li>
+        <li><a href="#prd">Five-line lean PRD</a></li>
+        <li><a href="#design-thinking">Design thinking</a></li>
+        <li><a href="#iterations">Development iterations</a></li>
+        <li><a href="#testing">Alpha testing</a></li>
+        <li><a href="#assessment">Assessment</a></li>
+        <li><a href="#limitations">Limitations</a></li>
+        <li><a href="#ai">AI-assisted development</a></li>
+      </ol>
+    </nav>
+
+    <div class="notes-main">
+
+      <!-- A -->
+      <section class="n-section" id="case" aria-labelledby="case-title">
+        <p class="n-kicker">A</p>
+        <h2 id="case-title">Assigned case</h2>
+        <p><strong>Case H: Waggy Tails Dog Daycare, Lucan, Dublin.</strong> Waggy Tails is the fictional business supplied by the assignment. It is run by its owner, Aisling Nolan.</p>
+        <div class="facts" role="list">
+          <div class="fact" role="listitem"><b>Capacity</b><span>40 dog places per day</span></div>
+          <div class="fact" role="listitem"><b>Team</b><span>Six staff</span></div>
+          <div class="fact" role="listitem"><b>Bookings</b><span>Arrive by WhatsApp, Instagram and text</span></div>
+          <div class="fact" role="listitem"><b>Demand</b><span>Mondays and Fridays overbooked about twice a month; Wednesdays at roughly half capacity</span></div>
+          <div class="fact" role="listitem"><b>Vaccinations</b><span>Paper records; a dog with an expired kennel cough vaccination was recently admitted</span></div>
+          <div class="fact" role="listitem"><b>Owner messages</b><span>About 50 a day asking how dogs are doing</span></div>
+        </div>
+        <p>These figures describe the fictional case business only. They are not customer research, Irish industry statistics or PawPilot results.</p>
+        <p><strong>Problem statement.</strong> Waggy Tails relies on disconnected processes for managing bookings, vaccination records and owner communication. This creates booking confusion, makes vaccination eligibility harder to track and interrupts staff throughout the day.</p>
+        <p><strong>Design challenge.</strong> How might we give smaller dog daycare operators one simple digital system for managing bookings, checking vaccination eligibility and keeping owners updated without creating additional administration?</p>
+      </section>
+
+      <!-- B -->
+      <section class="n-section" id="hunch" aria-labelledby="hunch-title">
+        <p class="n-kicker">B</p>
+        <h2 id="hunch-title">Hunch (before AI)</h2>
+        <div class="hunch">
+          <h3>Hunch (before AI)</h3>
+          <blockquote><p style="margin:0;color:#fff">I think smaller dog daycare businesses could benefit from a simple digital system that keeps track of bookings, vaccination dates and daily dog updates, rather than having staff manage everything through messages and paperwork.</p></blockquote>
+        </div>
+        <p>This is the selected example hunch for the assessment exercise.</p>
+      </section>
+
+      <!-- C -->
+      <section class="n-section" id="ideas" aria-labelledby="ideas-title">
+        <p class="n-kicker">C</p>
+        <h2 id="ideas-title">Ideas explored</h2>
+        <p>Starting from the hunch, AI-assisted brainstorming considered these product directions:</p>
+        <ul>
+          <li>Booking and capacity management.</li>
+          <li>Vaccination reminders and eligibility.</li>
+          <li>Daily dog activity updates.</li>
+          <li>Reducing repeated owner enquiries.</li>
+          <li>Improving visibility of quieter booking days.</li>
+          <li>Combining the connected operational workflows.</li>
+        </ul>
+        <p>These were directions explored during brainstorming, not six separate hunches written before AI was used.</p>
+        <p><strong>Why the combined product was selected.</strong> The problems are connected. A booking-only system would not solve vaccination eligibility or owner enquiries. A vaccination-only system would leave booking administration unchanged. An owner-update-only system would not prevent overbooking. Each one depends on knowing which dogs are booked for which day, so it made sense to build them around the same records.</p>
+      </section>
+
+      <!-- D -->
+      <section class="n-section" id="solution" aria-labelledby="solution-title">
+        <p class="n-kicker">D</p>
+        <h2 id="solution-title">Selected solution and reasoning</h2>
+        <p>PawPilot combines bookings, vaccination checks and owner updates. These are connected parts of the same daily operation: a booking decides who attends, a vaccination record decides whether they can attend, and the day's activities become the owner's update.</p>
+        <p>A narrowly focused product for smaller daycare operators was chosen rather than a general-purpose business management system. Smaller teams need the few jobs they repeat every day to be quick and dependable, more than they need a long list of modules.</p>
+        <p>This is a working product hypothesis. The prototype shows the idea can work in a browser. It does not show that daycare owners would pay for it.</p>
+      </section>
+
+      <!-- E -->
+      <section class="n-section" id="customer" aria-labelledby="customer-title">
+        <p class="n-kicker">E</p>
+        <h2 id="customer-title">Target customer</h2>
+        <div class="facts" role="list">
+          <div class="fact" role="listitem"><b>Buyer</b><span>Independent daycare owner or manager</span></div>
+          <div class="fact" role="listitem"><b>Daily user</b><span>Daycare staff</span></div>
+          <div class="fact" role="listitem"><b>Secondary user</b><span>Dog owner</span></div>
+          <div class="fact" role="listitem"><b>Target niche</b><span>Independent Irish dog daycare centres with approximately 20 to 60 places</span></div>
+        </div>
+        <div class="callout">
+          <span class="tag tag-coral callout-label">Illustrative customer statements, not actual interview findings.</span>
+          <ul style="margin-top:4px">
+            <li>“By ten o'clock I've answered more messages than I've walked dogs.”</li>
+            <li>“I only find out a Friday is overbooked when the dogs arrive.”</li>
+            <li>“Checking a vaccination date means finding the right folder first.”</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- F -->
+      <section class="n-section" id="technology" aria-labelledby="technology-title">
+        <p class="n-kicker">F</p>
+        <h2 id="technology-title">Technology type</h2>
+        <p>PawPilot is proposed dog daycare operations software. The current alpha, demonstrated as Waggy Tails, is a single web page built with:</p>
+        <ul>
+          <li>HTML.</li>
+          <li>CSS.</li>
+          <li>JavaScript.</li>
+          <li>Browser localStorage, which keeps bookings, check-ins and activities in the user's own browser.</li>
+        </ul>
+        <p>It runs on GitHub Pages with no server or database. It is not yet a secure cloud service: there are no accounts, data is not shared between devices, and nothing is backed up.</p>
+      </section>
+
+      <!-- G -->
+      <section class="n-section" id="competitors" aria-labelledby="competitors-title">
+        <p class="n-kicker">G</p>
+        <h2 id="competitors-title">Competitor research</h2>
+        <p>Two established software products already serve dog daycares. Their official pages were reviewed on 19 October 2026.</p>
+        <div class="table-wrap">
+          <table>
+            <caption class="sr-only">Competitor comparison</caption>
+            <thead><tr><th scope="col">Product</th><th scope="col">Relevant capabilities described on the official page</th></tr></thead>
+            <tbody>
+              <tr><td><a href="https://www.gingrapp.com/dog-daycare-software" target="_blank" rel="noopener">Gingr<span class="sr-only"> (opens in a new tab)</span></a></td><td>Daycare booking through an owner app, built-in capacity limits, vaccination checks before arrival, and report cards with notes, photos and video sent to owners.</td></tr>
+              <tr><td><a href="https://www.petexec.net/service/daycares" target="_blank" rel="noopener">PetExec<span class="sr-only"> (opens in a new tab)</span></a></td><td>Daycare scheduling, vaccination management with dates, alerts and document uploads, an owner portal and mobile app for self-service booking, and report cards.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Relationship between the two.</strong> PetExec's website states that it is now part of the Gingr family, so these are related products rather than completely independent competing companies.</p>
+        <p><strong>Proposed differentiation.</strong> Both products already offer the core features PawPilot is built around. PawPilot's proposed difference is a straightforward, narrowly focused experience for smaller independent daycare operators: three connected daily workflows, a phone-first design for staff on the floor, and simple pricing. Whether that is enough of a difference has not been tested.</p>
+      </section>
+
+      <!-- H -->
+      <section class="n-section" id="business-model" aria-labelledby="bm-title">
+        <p class="n-kicker">H</p>
+        <h2 id="bm-title">Business model</h2>
+        <span class="tag tag-coral" style="margin-top:12px">Pricing assumption</span>
+        <div class="facts" role="list">
+          <div class="fact" role="listitem"><b>Setup</b><span>€149 one-time setup</span></div>
+          <div class="fact" role="listitem"><b>Subscription</b><span>€39 per month per location</span></div>
+        </div>
+        <p>This is an initial commercial hypothesis. It has not been validated with paying customers, and it matches the proposed price on the landing page.</p>
+      </section>
+
+      <!-- I -->
+      <section class="n-section" id="prd" aria-labelledby="prd-title">
+        <p class="n-kicker">I</p>
+        <h2 id="prd-title">Five-line lean PRD</h2>
+        <ol class="prd">
+          <li><b>Hypothesis:</b> Independent daycare operators may value one straightforward system for bookings, vaccination checks and daily activity updates.</li>
+          <li><b>Audience:</b> Independent Irish dog daycares with approximately 20 to 60 daily places.</li>
+          <li><b>Primary CTA:</b> Join the waiting list.</li>
+          <li><b>Success measure:</b> Interest expressed through a future measured waiting-list test.</li>
+          <li><b>Out of scope:</b> Payments, secure owner accounts, live synchronisation, real messaging and commercial deployment.</li>
+        </ol>
+        <p>The current waiting-list form does not collect actual registrations. It validates the fields in the browser, then shows a message explaining that nothing was sent or saved.</p>
+      </section>
+
+      <!-- J -->
+      <section class="n-section" id="design-thinking" aria-labelledby="dt-title">
+        <p class="n-kicker">J</p>
+        <h2 id="dt-title">Design thinking</h2>
+        <div class="stages">
+          <div class="stage"><b>Empathise</b><span>Consider the needs of the daycare manager, busy staff and dog owners.</span></div>
+          <div class="stage"><b>Define</b><span>Focus on overbooking, vaccination eligibility and owner communication.</span></div>
+          <div class="stage"><b>Ideate</b><span>Consider individual tools before selecting a combined solution.</span></div>
+          <div class="stage"><b>Prototype</b><span>Build the Waggy Tails application with Bookings, Today and Pupdate.</span></div>
+          <div class="stage"><b>Test</b><span>Review capacity restrictions, vaccination rules, activity recording, owner filtering and browser persistence.</span></div>
+        </div>
+      </section>
+
+      <!-- K -->
+      <section class="n-section" id="iterations" aria-labelledby="iter-title">
+        <p class="n-kicker">K</p>
+        <h2 id="iter-title">Development iterations</h2>
+        <p>The application was built from one initial prompt, then improved through two review prompts. Each stage ended with automated browser tests. The current source was inspected before writing this summary.</p>
+        <div class="iter">
+          <div class="iter-card">
+            <h3>Initial build</h3>
+            <ul>
+              <li>Bookings, Today and Pupdate.</li>
+              <li>Weekly capacity management.</li>
+              <li>Vaccination restrictions.</li>
+              <li>One-tap activity recording.</li>
+              <li>Owner-facing activity preview.</li>
+              <li>Fictional sample records.</li>
+              <li>localStorage persistence.</li>
+              <li>Mobile-first design.</li>
+            </ul>
+            <p class="note">48 automated checks passed.</p>
+          </div>
+          <div class="iter-card">
+            <h3>First review</h3>
+            <ul>
+              <li>Alternative booking-date navigation.</li>
+              <li>Clearer suggested dates.</li>
+              <li>Storage reliability.</li>
+              <li>Easier mobile dog selection.</li>
+              <li>Owner-preview clarity.</li>
+              <li>Vaccination warnings.</li>
+              <li>Responsive layouts.</li>
+              <li>Regression testing.</li>
+            </ul>
+            <p class="note">98 automated checks passed.</p>
+          </div>
+          <div class="iter-card">
+            <h3>Final correction</h3>
+            <ul>
+              <li>Consistent calendar navigation.</li>
+              <li>Reliable save confirmation.</li>
+              <li>Sample-data date handling.</li>
+              <li>Staff-to-owner workflow checks.</li>
+              <li>Regression testing.</li>
+            </ul>
+            <p class="note">115 automated checks passed. The calendar and date-handling fixes were already present from the first review; this pass also made undo and reset report their own save result.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- L -->
+      <section class="n-section" id="testing" aria-labelledby="testing-title">
+        <p class="n-kicker">L</p>
+        <h2 id="testing-title">Alpha testing and improvement record</h2>
+        <p>A worked example of how testing can be documented. Each statement is marked as one of three types:</p>
+        <ul style="list-style:none;padding:0"><li><span class="status status-pass">Verified</span> Confirmed by code review or automated browser test.</li><li><span class="status status-ill">Illustrative</span> Example wording for a physical-phone test.</li><li><span class="status status-open">Not yet tested</span> Needs a real device.</li></ul>
+
+        <h3>Test objective</h3>
+        <p>Check whether daycare staff can use the application on a phone to:</p>
+        <ul>
+          <li>Find a day with available places.</li>
+          <li>Attempt a booking when capacity is full.</li>
+          <li>Select a suggested alternative date.</li>
+          <li>Identify an expired vaccination.</li>
+          <li>Check in an eligible dog.</li>
+          <li>Record a daily activity.</li>
+          <li>Open Pupdate.</li>
+          <li>Refresh the browser and confirm persistence.</li>
+        </ul>
+
+        <h3>Test environment</h3>
+        <div class="facts" role="list">
+          <div class="fact" role="listitem"><b>Application</b><span><a href="https://gerardmcandrew-oss.github.io/waggy-tails-demo/" target="_blank" rel="noopener">gerardmcandrew-oss.github.io/waggy-tails-demo<span class="sr-only"> (opens in a new tab)</span></a></span></div>
+          <div class="fact" role="listitem"><b>Illustrative screen size</b><span>375px wide</span></div>
+          <div class="fact" role="listitem"><b>Browser</b><span>Mobile Safari or Chrome</span></div>
+          <div class="fact" role="listitem"><b>Data</b><span>Fictional sample records</span></div>
+        </div>
+        <p><strong>Status:</strong> Worked testing scenario based on the application requirements and earlier technical reviews. Physical-device outcomes are not independently verified.</p>
+
+        <h3>Example: What I tried <span class="status status-ill">Illustrative</span></h3>
+        <div class="callout"><p>“I started with the booking calendar and selected a day that was already full. I wanted to see whether the system would prevent another booking and offer another date. I then moved to Today, checked the vaccination warnings and tried recording an activity for an eligible dog. Finally, I opened Pupdate to see whether the activity appeared in the dog's daily notes.”</p></div>
+        <p class="note">This shows how a test would be recorded. It is not a claim that a physical test was completed.</p>
+
+        <h3>Issue 1: Alternative booking dates <span class="status status-pass">Verified</span></h3>
+        <p>An earlier technical review identified a mismatch between the alternative-date search and the calendar navigation. The search could consider dates up to 60 days ahead, while the calendar navigation was restricted to four weeks. This could result in a suggested date that the user could not easily reach.</p>
+        <p><strong>Why this matters.</strong> Staff need to act on a suggested date immediately, particularly when taking bookings while dealing with dogs and owners.</p>
+        <p><strong>Improvement requested:</strong> suggested dates must be reachable, calendar navigation must stay consistent, the displayed date and booking date must match, and the app must explain why a date was offered.</p>
+        <p><strong>Implemented correction (from the current source).</strong></p>
+        <ul>
+          <li>The booking window is defined once as four weeks (today plus 27 days). Alternative dates are only searched inside that window, and a booking beyond it is refused with a reason.</li>
+          <li>Up to two alternatives are offered, the nearest earlier and nearest later date. Each lists the places left, confirms the dog is not already booked and confirms the vaccinations are valid on that day.</li>
+          <li>Selecting an alternative moves the calendar to the right week, highlights that day and shows a notice that the date has changed.</li>
+          <li>The Book button names the full date it will book. If that no longer matches the selected day, the booking is refused.</li>
+        </ul>
+
+        <h3>Issue 2: Save confirmation <span class="status status-pass">Verified</span></h3>
+        <p>An earlier technical review identified a risk that the application could show a successful booking or activity update even if localStorage failed. The storage function could catch an error while the calling function still continued to show success.</p>
+        <p><strong>Why this matters.</strong> Staff must be able to trust that a booking or daily activity has actually been recorded.</p>
+        <p><strong>Improvement requested:</strong> storage operations report success or failure, success messages appear only when the save succeeds, failure gets clear feedback, and nothing gives a misleading confirmation.</p>
+        <p><strong>Implemented correction (from the current source).</strong></p>
+        <ul>
+          <li>The save function writes the data, reads it back, and reports success only if the stored copy matches.</li>
+          <li>Every change (booking, cancellation, check-in, activity, undo, reset and sample-date refresh) returns whether it was saved.</li>
+          <li>Confirmations end with “Saved.” only when the save worked. Otherwise they say “Not saved: this browser is blocking storage, so this will be lost on refresh.”, and a warning banner explains the risk.</li>
+        </ul>
+
+        <h3>Example: What confused me <span class="status status-ill">Illustrative</span></h3>
+        <div class="callout"><p>“The suggested alternative date was not always easy to relate to the visible calendar. If I was using the app quickly, I would expect the calendar to move directly to that date instead of making me search for it.”</p></div>
+        <p class="note">An illustrative observation based on the earlier confirmed code issue, not a recorded user comment.</p>
+
+        <h3>Example: What changed <span class="status status-pass">Verified</span></h3>
+        <p>The development prompts asked for booking-date consistency and honest storage confirmation. Both corrections are present in the current source and are described under Issue 1 and Issue 2 above. The calendar now moves directly to a selected suggestion, which addresses the confusion described in the example.</p>
+
+        <h3>Retest procedure</h3>
+        <p>Outcomes below come from the automated browser test suite (headless Chrome at simulated phone widths), run against the same code as the live demo. None of these steps has yet been confirmed on a physical phone.</p>
+        <div class="table-wrap">
+          <table>
+            <caption class="sr-only">Retest steps and outcomes</caption>
+            <thead><tr><th scope="col">Step</th><th scope="col">Automated browser test</th><th scope="col">Physical phone</th></tr></thead>
+            <tbody>
+              <tr><td>Reset fictional sample data.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
+              <tr><td>Select a fully booked day.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
+              <tr><td>Attempt another booking.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
+              <tr><td>Confirm the capacity restriction (count stays at 40).</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
+              <tr><td>Select the suggested alternative date.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
+              <tr><td>Confirm the calendar displays that date.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
+              <tr><td>Complete an eligible booking.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
+              <tr><td>Refresh and confirm persistence.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
+              <tr><td>Check in an eligible dog.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
+              <tr><td>Record Played.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
+              <tr><td>Open Pupdate and check for the activity.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Testing lesson</h3>
+        <div class="callout"><p>“The review highlighted how a small inconsistency can affect an otherwise useful workflow. A booking suggestion is only helpful if staff can immediately act on it. The same applies to saving information. Staff need to know that an update has been recorded, particularly when they are working quickly.”</p></div>
+
+        <h3>Physical-phone testing guidance</h3>
+        <p>A completed real-device test should record the following. The fields are left blank on purpose; no physical result has been invented.</p>
+        <div class="table-wrap">
+          <table>
+            <caption class="sr-only">Physical-phone test record template</caption>
+            <tbody>
+              <tr><th scope="row">Actual phone model and browser</th><td>To be completed</td></tr>
+              <tr><th scope="row">Actions performed</th><td>To be completed</td></tr>
+              <tr><th scope="row">A genuine issue or point of confusion</th><td>To be completed</td></tr>
+              <tr><th scope="row">The correction made</th><td>To be completed</td></tr>
+              <tr><th scope="row">The retest result</th><td>To be completed</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- M -->
+      <section class="n-section" id="assessment" aria-labelledby="assessment-title">
+        <p class="n-kicker">M</p>
+        <h2 id="assessment-title">Application assessment and lessons learned</h2>
+        <p>An illustrative review of the Task 2 application. This is an independent provisional assessment, not an official lecturer grade.</p>
+        <div class="score"><b>47/50</b><span class="tag">Provisional assessment</span></div>
+        <p class="note">Subject to confirmation of physical-device testing and the implemented corrections.</p>
+        <div class="table-wrap">
+          <table>
+            <caption class="sr-only">Provisional assessment breakdown</caption>
+            <thead><tr><th scope="col">Area</th><th scope="col" class="num">Maximum</th><th scope="col" class="num">Assessment</th></tr></thead>
+            <tbody>
+              <tr><td>Three working views</td><td class="num">12</td><td class="num">12</td></tr>
+              <tr><td>Business rules and validation</td><td class="num">14</td><td class="num">13</td></tr>
+              <tr><td>Fictional data and persistence</td><td class="num">8</td><td class="num">8</td></tr>
+              <tr><td>Mobile design and usability</td><td class="num">10</td><td class="num">9</td></tr>
+              <tr><td>Testing and iteration evidence</td><td class="num">6</td><td class="num">5</td></tr>
+              <tr><th scope="row">Total</th><th class="num">50</th><th class="num">47</th></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">This breakdown is an illustrative assessment framework, not the lecturer's published marking allocation.</p>
+        <h3>Strengths</h3>
+        <ul>
+          <li><strong>Bookings:</strong> weekly capacity management, booking restrictions and alternative-date handling.</li>
+          <li><strong>Today:</strong> vaccination warnings, check-in eligibility and one-tap activity recording.</li>
+          <li><strong>Pupdate:</strong> an owner-facing preview displaying daily activity notes for the relevant fictional dog.</li>
+          <li>Fictional sample data, browser persistence, capacity rules and vaccination eligibility.</li>
+          <li>Consistent design, mobile-first layouts and iterative technical review.</li>
+        </ul>
+        <h3>Areas for improvement</h3>
+        <ul>
+          <li>Calendar navigation and suggested alternative dates.</li>
+          <li>Accurate feedback when browser storage fails.</li>
+          <li>Sample-data date handling.</li>
+          <li>Full workflow verification on a physical phone.</li>
+          <li>Clear disclosure that the owner preview is not secure authentication.</li>
+        </ul>
+        <p>The first, second, third and fifth points were addressed in later iterations (see sections K and L). Physical-phone verification is still outstanding.</p>
+        <h3>Lessons for future development</h3>
+        <ul>
+          <li>Build the required workflows before adding visual polish.</li>
+          <li>Use fictional records that make the business rules easy to demonstrate.</li>
+          <li>Test the complete journey from booking to owner update.</li>
+          <li>Check that save confirmations reflect actual saved state.</li>
+          <li>Record at least one genuine usability problem and the change made.</li>
+          <li>Avoid describing a browser prototype as a production-ready platform.</li>
+        </ul>
+      </section>
+
+      <!-- N -->
+      <section class="n-section" id="limitations" aria-labelledby="limits-title">
+        <p class="n-kicker">N</p>
+        <h2 id="limits-title">Prototype limitations</h2>
+        <ul>
+          <li>Fictional sample data.</li>
+          <li>Browser-local persistence.</li>
+          <li>No secure owner authentication.</li>
+          <li>No live cross-device synchronisation.</li>
+          <li>No actual owner notifications.</li>
+          <li>No payment processing.</li>
+          <li>No commercial deployment.</li>
+          <li>No real waiting-list collection.</li>
+        </ul>
+        <p>A production product would need a secure backend, authenticated accounts, access controls, data protection work, backups and much broader testing with real daycare teams.</p>
+      </section>
+
+      <!-- O -->
+      <section class="n-section" id="ai" aria-labelledby="ai-title">
+        <p class="n-kicker">O</p>
+        <h2 id="ai-title">AI-assisted development</h2>
+        <p>AI tools supported coding, design iteration and technical review. The application was developed through an initial build prompt and subsequent correction prompts, with automated browser tests run after each stage. The same approach was used to draft and check this website. The full chat history is not reproduced here.</p>
+        <p>No customer interviews, surveys or completed physical-phone tests were carried out for this project, and none are claimed. The competitor research in section G is based on the companies' own websites.</p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html" aria-label="PawPilot home page"><svg aria-hidden="true"><use href="#logo"/></svg><span class="wordmark">Paw<span>Pilot</span></span></a>
+        <p>Proposed dog daycare operations software: bookings, vaccination checks and daily dog updates in one straightforward workspace for independent daycares.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://gerardmcandrew-oss.github.io/waggy-tails-demo/" target="_blank" rel="noopener">Try the demo<span class="sr-only"> (opens in a new tab)</span></a></li>
+        <li><a href="index.html">PawPilot landing page</a></li>
+        <li><a href="notes.html">Behind the build</a></li>
+      </ul>
+    </div>
+    <div class="footer-legal">
+      <p>Prototype disclaimer: PawPilot is a product concept, not a commercially available service. The demo is a browser-based alpha using fictional sample data.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
