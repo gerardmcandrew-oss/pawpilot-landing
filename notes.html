@@ -235,7 +235,7 @@
               </ul>
               <h4>Testing and result</h4><ul>
                 <li>48 tests passed.</li>
-                <li>Problems found and fixed: the Bookings view scrolled sideways at 375px, an owner status label ran off the card, and one link was smaller than a 44px touch target.</li>
+                <li>Problems the AI testing found, which I reviewed and approved fixes for: the Bookings screen scrolled sideways on a phone, an owner status label ran off its card, and one link was too small to tap easily.</li>
                 <li>Published to GitHub Pages after my approval.</li>
               </ul></div>
             </div>
@@ -266,7 +266,7 @@
               </ul>
               <h4>Testing and result</h4><ul>
                 <li>98 tests passed.</li>
-                <li>Problems found and fixed: cards 1px too wide at 320px, a squeezed dog name, arrow buttons shrinking, summary labels covered by a decoration, and today's booking counted twice in the vaccination list.</li>
+                <li>Problems the AI testing found, which I reviewed and approved fixes for: dog cards slightly too wide on the smallest phones, a squeezed dog name, week arrows becoming too small to tap, summary labels hidden behind a decoration, and today's booking counted twice in the vaccination list.</li>
                 <li>Published after my approval.</li>
               </ul></div>
             </div>
@@ -304,7 +304,7 @@
               </ul></div>
               <div><h4>Testing and result</h4><ul>
                 <li>84 tests passed, including proof that the form makes no network request and stores nothing.</li>
-                <li>Problems found and fixed: the hero phone image covered the dog photo on mobile, a laptop image overflowed at 768px, and two sets of links were under 44px.</li>
+                <li>Problems the AI testing found, which I reviewed and approved fixes for: the app screenshot covered the dog photo on phones, the laptop image ran off the edge on tablets, and some links were too small to tap easily.</li>
                 <li>Published after my approval.</li>
               </ul></div>
             </div>
@@ -397,24 +397,24 @@
         </ul>
 
         <h3 class="l-step"><span>5</span>Issues found and fixed during testing</h3>
-        <p>Each of these was found during testing at one of the stages in section K, fixed, and tested again before I approved the change.</p>
+        <p>The AI tool's testing found these issues at the stages shown in section K. I reviewed each one and the proposed fix, and approved the fix before it went live. Every fix was tested again afterwards.</p>
         <div class="table-wrap"><table>
           <caption class="sr-only">Issues found and fixed during testing</caption>
           <thead><tr><th scope="col">Stage</th><th scope="col">What was found</th><th scope="col">What changed</th><th scope="col">Retest</th></tr></thead>
           <tbody>
-            <tr><td>1</td><td>The Bookings view scrolled sideways at 375px: the dog dropdown's longest name widened the page.</td><td>Grid columns and the dropdown width constrained.</td><td><span class="status status-pass">Passed</span></td></tr>
+            <tr><td>1</td><td>The Bookings screen scrolled sideways on a phone because a long dog name in the dropdown widened the page.</td><td>The layout and dropdown were kept to the screen width.</td><td><span class="status status-pass">Passed</span></td></tr>
             <tr><td>1</td><td>The owner's attendance label ran past the edge of the Pupdate card.</td><td>Label allowed to wrap.</td><td><span class="status status-pass">Passed</span></td></tr>
-            <tr><td>1</td><td>The “How to try this” link was 32px tall, under the 44px touch target.</td><td>Raised to 44px.</td><td><span class="status status-pass">Passed</span></td></tr>
-            <tr><td>2</td><td>At 320px, dog cards were 1px too wide because status labels could not wrap.</td><td>Labels wrap; cards fit.</td><td><span class="status status-pass">Passed</span></td></tr>
-            <tr><td>2</td><td>The chosen dog's name was squeezed by the Change button at 320px.</td><td>Button padding reduced; long names wrap.</td><td><span class="status status-pass">Passed</span></td></tr>
-            <tr><td>2</td><td>Week arrow buttons shrank below 44px when the date range was long.</td><td>Arrows kept at a fixed 44px.</td><td><span class="status status-pass">Passed</span></td></tr>
+            <tr><td>1</td><td>The “How to try this” link was too small to tap easily.</td><td>Made larger.</td><td><span class="status status-pass">Passed</span></td></tr>
+            <tr><td>2</td><td>On the smallest phones, dog cards were slightly too wide because status labels could not wrap.</td><td>Labels wrap; cards fit.</td><td><span class="status status-pass">Passed</span></td></tr>
+            <tr><td>2</td><td>On the smallest phones, the chosen dog's name was squeezed by the Change button.</td><td>Button padding reduced; long names wrap.</td><td><span class="status status-pass">Passed</span></td></tr>
+            <tr><td>2</td><td>The week arrow buttons shrank and became hard to tap when the date range was long.</td><td>The arrows now keep a fixed, easy-to-tap size.</td><td><span class="status status-pass">Passed</span></td></tr>
             <tr><td>2</td><td>A decorative circle covered the summary card labels on small phones.</td><td>Labels placed above the decoration.</td><td><span class="status status-pass">Passed</span></td></tr>
             <tr><td>2</td><td>The owner's initial sat in the corner of its circle in owner view.</td><td>Centred.</td><td><span class="status status-pass">Passed</span></td></tr>
             <tr><td>2</td><td>The vaccination list counted today's booking a second time as “after expiry”.</td><td>Only future bookings are counted.</td><td><span class="status status-pass">Passed</span></td></tr>
             <tr><td>3</td><td>Undo and reset messages relied on a shared flag instead of their own save result.</td><td>Both now report whether their own save worked.</td><td><span class="status status-pass">Passed</span></td></tr>
             <tr><td>4</td><td>On phones, the hero's app screenshot covered the dog photo.</td><td>Positioning corrected.</td><td><span class="status status-pass">Passed</span></td></tr>
-            <tr><td>4</td><td>At 768px the laptop image overflowed the page edge by 2px.</td><td>Mockup resized.</td><td><span class="status status-pass">Passed</span></td></tr>
-            <tr><td>4</td><td>The logo link and the notes contents links were under 44px tall.</td><td>Raised to 44px.</td><td><span class="status status-pass">Passed</span></td></tr>
+            <tr><td>4</td><td>On tablets, the laptop image ran slightly off the edge of the page.</td><td>Mockup resized.</td><td><span class="status status-pass">Passed</span></td></tr>
+            <tr><td>4</td><td>The logo link and the notes contents links were too small to tap easily.</td><td>Made larger.</td><td><span class="status status-pass">Passed</span></td></tr>
             <tr><td>5</td><td>On phones, the notes text ran to the screen edge with no margin.</td><td>Side margins restored, and a margin check added to the tests.</td><td><span class="status status-pass">Passed</span></td></tr>
           </tbody>
         </table></div>
