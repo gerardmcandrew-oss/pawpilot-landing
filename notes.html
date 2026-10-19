@@ -64,7 +64,6 @@
         <li><a href="#design-thinking">Design thinking</a></li>
         <li><a href="#iterations">Build and review timeline</a></li>
         <li><a href="#testing">Testing record</a></li>
-        <li><a href="#assessment">Assessment</a></li>
         <li><a href="#limitations">Limitations</a></li>
         <li><a href="#ai">AI-assisted development</a></li>
       </ol>
@@ -319,7 +318,7 @@
                 <li>The development and testing record should follow the order of the work.</li>
               </ul></div>
               <div><h4>What changed</h4><ul>
-                <li>My role is stated at each stage, and the assessment is labelled as a self-assessment.</li>
+                <li>My role is stated at each stage, and the self-assessed score was removed.</li>
                 <li>This timeline replaced a shorter summary.</li>
               </ul></div>
             </div>
@@ -365,7 +364,7 @@
           <p>The first was the alternative booking-date feature. The system could search further ahead than the calendar allowed the user to navigate. This was confusing because a suggested date should be something staff can immediately select. The follow-up development prompt therefore focused on making the suggested date and calendar work together.</p>
           <p>The second issue involved saving information. The review identified a risk that the application could display a success message even if browser storage failed. This needed to be corrected because staff should be able to trust that a booking or activity has actually been saved.</p>
           <p>Further reviews considered vaccination warnings, mobile dog selection, owner-preview clarity and the full journey from booking through to recording an activity and viewing Pupdate.</p>
-          <p>The final source review indicated that the main calendar and storage concerns had been addressed. The provisional assessment was approximately 46 to 48 out of 50; this is not an official grade.</p>
+          <p>The final source review indicated that the main calendar and storage concerns had been addressed.</p>
           <p><strong>What I learned:</strong> A feature can be technically present without being easy to use. The alternative-date issue was a good example. The system was trying to help staff find another booking date, but the navigation also needed to support that recommendation. The reviews helped focus the improvements on completing the actual staff workflow rather than simply adding more features.</p>
           <p><strong>Testing method:</strong> These findings came from source-code review, development iterations and the tests recorded below.</p>
         </div>
@@ -505,58 +504,8 @@
       </section>
 
       <!-- M -->
-      <section class="n-section" id="assessment" aria-labelledby="assessment-title">
-        <p class="n-kicker">M</p>
-        <h2 id="assessment-title">Application assessment and lessons learned</h2>
-        <p>My own review of the Task 2 application. This is a provisional self-assessment, not an official lecturer grade.</p>
-        <div class="score"><b>47/50</b><span class="tag">Provisional self-assessment</span></div>
-        <p class="note">Based on the tests recorded in section L.</p>
-        <div class="table-wrap">
-          <table>
-            <caption class="sr-only">Provisional assessment breakdown</caption>
-            <thead><tr><th scope="col">Area</th><th scope="col" class="num">Maximum</th><th scope="col" class="num">Assessment</th></tr></thead>
-            <tbody>
-              <tr><td>Three working views</td><td class="num">12</td><td class="num">12</td></tr>
-              <tr><td>Business rules and validation</td><td class="num">14</td><td class="num">13</td></tr>
-              <tr><td>Fictional data and persistence</td><td class="num">8</td><td class="num">8</td></tr>
-              <tr><td>Mobile design and usability</td><td class="num">10</td><td class="num">9</td></tr>
-              <tr><td>Testing and iteration evidence</td><td class="num">6</td><td class="num">5</td></tr>
-              <tr><th scope="row">Total</th><th class="num">50</th><th class="num">47</th></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="note">This breakdown is my own assessment framework, not the lecturer's published marking allocation.</p>
-        <h3>Strengths</h3>
-        <ul>
-          <li><strong>Bookings:</strong> weekly capacity management, booking restrictions and alternative-date handling.</li>
-          <li><strong>Today:</strong> vaccination warnings, check-in eligibility and one-tap activity recording.</li>
-          <li><strong>Pupdate:</strong> an owner-facing preview displaying daily activity notes for the relevant fictional dog.</li>
-          <li>Fictional sample data, browser persistence, capacity rules and vaccination eligibility.</li>
-          <li>Consistent design, mobile-first layouts and iterative technical review.</li>
-        </ul>
-        <h3>Areas for improvement</h3>
-        <ul>
-          <li>Calendar navigation and suggested alternative dates.</li>
-          <li>Accurate feedback when browser storage fails.</li>
-          <li>Sample-data date handling.</li>
-          <li>Full workflow verification, from booking to the owner update.</li>
-          <li>Clear disclosure that the owner preview is not secure authentication.</li>
-        </ul>
-        <p>All five points were addressed in stages 2 and 3 and passed testing (see sections K and L).</p>
-        <h3>Lessons for future development</h3>
-        <ul>
-          <li>Build the required workflows before adding visual polish.</li>
-          <li>Use fictional records that make the business rules easy to demonstrate.</li>
-          <li>Test the complete journey from booking to owner update.</li>
-          <li>Check that save confirmations reflect actual saved state.</li>
-          <li>Record at least one genuine usability problem and the change made.</li>
-          <li>Avoid describing a browser prototype as a production-ready platform.</li>
-        </ul>
-      </section>
-
-      <!-- N -->
       <section class="n-section" id="limitations" aria-labelledby="limits-title">
-        <p class="n-kicker">N</p>
+        <p class="n-kicker">M</p>
         <h2 id="limits-title">Prototype limitations</h2>
         <ul>
           <li>Fictional sample data.</li>
@@ -571,9 +520,9 @@
         <p>A production product would need a secure backend, authenticated accounts, access controls, data protection work, backups and much broader testing with real daycare teams.</p>
       </section>
 
-      <!-- O -->
+      <!-- N -->
       <section class="n-section" id="ai" aria-labelledby="ai-title">
-        <p class="n-kicker">O</p>
+        <p class="n-kicker">N</p>
         <h2 id="ai-title">AI-assisted development</h2>
         <p>AI tools supported coding, design iteration and technical review. I wrote the initial build prompt and the two improvement prompts, decided what needed fixing, reviewed the screenshots and test results, and approved each version before it was published. The AI tool wrote the code and ran the tests at my request. The same approach was used to draft and check this website. The full chat history is not reproduced here.</p>
         <p>No customer interviews or surveys were carried out for this project, and none are claimed. The competitor research in section G is based on the companies' own websites.</p>
