@@ -62,8 +62,8 @@
         <li><a href="#business-model">Business model</a></li>
         <li><a href="#prd">Five-line lean PRD</a></li>
         <li><a href="#design-thinking">Design thinking</a></li>
-        <li><a href="#iterations">Development iterations</a></li>
-        <li><a href="#testing">Alpha testing</a></li>
+        <li><a href="#iterations">Build and review timeline</a></li>
+        <li><a href="#testing">Testing record</a></li>
         <li><a href="#assessment">Assessment</a></li>
         <li><a href="#limitations">Limitations</a></li>
         <li><a href="#ai">AI-assisted development</a></li>
@@ -98,14 +98,14 @@
           <h3>Hunch (before AI)</h3>
           <blockquote><p style="margin:0;color:#fff">I think smaller dog daycare businesses could benefit from a simple digital system that keeps track of bookings, vaccination dates and daily dog updates, rather than having staff manage everything through messages and paperwork.</p></blockquote>
         </div>
-        <p>This is the selected example hunch for the assessment exercise.</p>
+        <p>This is the hunch I started from, before using any AI tools. Everything after it was built to test it.</p>
       </section>
 
       <!-- C -->
       <section class="n-section" id="ideas" aria-labelledby="ideas-title">
         <p class="n-kicker">C</p>
         <h2 id="ideas-title">Ideas explored</h2>
-        <p>Starting from the hunch, AI-assisted brainstorming considered these product directions:</p>
+        <p>Starting from my hunch, I used AI-assisted brainstorming to consider these product directions:</p>
         <ul>
           <li>Booking and capacity management.</li>
           <li>Vaccination reminders and eligibility.</li>
@@ -222,56 +222,129 @@
       <!-- K -->
       <section class="n-section" id="iterations" aria-labelledby="iter-title">
         <p class="n-kicker">K</p>
-        <h2 id="iter-title">Development iterations</h2>
-        <p>The application was built from one initial prompt, then improved through two review prompts. Each stage ended with automated browser tests. The current source was inspected before writing this summary.</p>
-        <div class="iter">
-          <div class="iter-card">
+        <h2 id="iter-title">Build and review timeline</h2>
+        <p>The work happened in the order below. At every stage I wrote the prompt, including what had to be tested, and reviewed the result before approving anything for publication. The AI tool wrote the code and ran the automated browser tests. The review notes in stages 2 and 3 are taken from my own improvement prompts.</p>
+        <ol class="tl-stages">
+          <li class="tl-stage">
+            <p class="tl-step">Stage 1 · Task 2</p>
             <h3>Initial build</h3>
-            <ul>
-              <li>Bookings, Today and Pupdate.</li>
-              <li>Weekly capacity management.</li>
-              <li>Vaccination restrictions.</li>
-              <li>One-tap activity recording.</li>
-              <li>Owner-facing activity preview.</li>
-              <li>Fictional sample records.</li>
-              <li>localStorage persistence.</li>
-              <li>Mobile-first design.</li>
-            </ul>
-            <p class="note">48 automated checks passed.</p>
-          </div>
-          <div class="iter-card">
-            <h3>First review</h3>
-            <ul>
-              <li>Alternative booking-date navigation.</li>
-              <li>Clearer suggested dates.</li>
-              <li>Storage reliability.</li>
-              <li>Easier mobile dog selection.</li>
-              <li>Owner-preview clarity.</li>
-              <li>Vaccination warnings.</li>
-              <li>Responsive layouts.</li>
-              <li>Regression testing.</li>
-            </ul>
-            <p class="note">98 automated checks passed.</p>
-          </div>
-          <div class="iter-card">
-            <h3>Final correction</h3>
-            <ul>
-              <li>Consistent calendar navigation.</li>
-              <li>Reliable save confirmation.</li>
-              <li>Sample-data date handling.</li>
-              <li>Staff-to-owner workflow checks.</li>
-              <li>Regression testing.</li>
-            </ul>
-            <p class="note">115 automated checks passed. The calendar and date-handling fixes were already present from the first review; this pass also made undo and reset report their own save result.</p>
-          </div>
-        </div>
+            <div class="tl-grid">
+              <div><h4>My prompt asked for</h4><ul>
+                <li>Three views named Bookings, Today and Pupdate.</li>
+                <li>A 40-place daily limit counted from real booking records, with the nearest free date suggested when a day is full.</li>
+                <li>Vaccinations checked against the attendance date: amber within 14 days, red when expired, blocking booking and check-in.</li>
+                <li>One-tap Ate, Walked, Played and Napped buttons with timestamps and no duplicate taps.</li>
+                <li>An owner view that shows only that owner's dog.</li>
+                <li>Fictional sample data saved in localStorage, a reset button and a phone-first design.</li>
+                <li>A mandatory list of tests before anything was published.</li>
+              </ul></div>
+              <div><h4>What was built</h4><ul>
+                <li>A single index.html with all three views and the business rules.</li>
+                <li>46 fictional dogs, so a fully booked 40-place day uses real records rather than a fixed number.</li>
+              </ul>
+              <h4>Testing and result</h4><ul>
+                <li>48 automated checks passed.</li>
+                <li>Problems found and fixed: the Bookings view scrolled sideways at 375px, an owner status label ran off the card, and one link was smaller than a 44px touch target.</li>
+                <li>Published to GitHub Pages after my approval.</li>
+              </ul></div>
+            </div>
+          </li>
+          <li class="tl-stage">
+            <p class="tl-step">Stage 2 · Task 2</p>
+            <h3>My first review</h3>
+            <div class="tl-grid">
+              <div><h4>My review notes</h4><ul>
+                <li>The 60-day alternative-booking search did not match the four-week calendar. Suggested dates must always be reachable and selectable.</li>
+                <li>Suggested dates should explain why they suit, and the booking must use the date that is visibly selected.</li>
+                <li>If localStorage fails, the app must not imply a booking or activity has been saved.</li>
+                <li>The dog selector should be quicker to use one-handed on a phone, searchable and accessible.</li>
+                <li>The owner Pupdate preview should feel like a separate owner screen and say it is not secure sign-in.</li>
+                <li>Staff should be able to see at once which dogs need vaccination action.</li>
+                <li>Layouts must work at 320, 375, 390 and 430px with no sideways scrolling, clipped text or menu overlap.</li>
+                <li>Outdated sample scenarios need a safe way to be refreshed.</li>
+                <li>Regression tests for capacity, duplicates, expiry boundaries, check-in blocking, activities, Pupdate filtering, cancellation, undo and persistence.</li>
+              </ul></div>
+              <div><h4>What changed</h4><ul>
+                <li>Suggestions limited to the four-week calendar, with up to two options and the reasons each one suits.</li>
+                <li>The Book button names its date and refuses if it no longer matches the selected day.</li>
+                <li>Every save is checked, and messages say “Saved.” or “Not saved” honestly.</li>
+                <li>A searchable dog picker with large one-tap rows.</li>
+                <li>A full-screen owner view labelled “Demo preview, not secure sign-in”.</li>
+                <li>A Vaccination actions list, expired dogs first.</li>
+                <li>A “Bring scenarios up to today” option that keeps all data and can be undone.</li>
+              </ul>
+              <h4>Testing and result</h4><ul>
+                <li>98 automated checks passed.</li>
+                <li>Problems found and fixed: cards 1px too wide at 320px, a squeezed dog name, arrow buttons shrinking, summary labels covered by a decoration, and today's booking counted twice in the vaccination list.</li>
+                <li>Published after my approval.</li>
+              </ul></div>
+            </div>
+          </li>
+          <li class="tl-stage">
+            <p class="tl-step">Stage 3 · Task 2</p>
+            <h3>My final correction review</h3>
+            <div class="tl-grid">
+              <div><h4>My review notes</h4><ul>
+                <li>The alternative-date search and the calendar's week limit had to agree, including a test of a suggestion in the fourth week.</li>
+                <li>Booking, check-in and activity functions could report success when saving had failed.</li>
+                <li>Saved changes must be kept, with a safe way to refresh outdated sample dates.</li>
+                <li>Verify the full staff workflow: Bookings, Today, check-in, record Played, Pupdate, then refresh.</li>
+                <li>Regression tests, and checks at 320, 375 and 390px.</li>
+              </ul></div>
+              <div><h4>What was found and changed</h4><ul>
+                <li>The calendar and date-handling problems had already been fixed in stage 2. New tests confirmed it, including a week-four suggestion and a case where the only free date is beyond the calendar.</li>
+                <li>Undo and reset still relied on a shared flag for their save message. They now report their own save result.</li>
+                <li>A full staff-to-owner workflow test was added.</li>
+              </ul>
+              <h4>Testing and result</h4><ul>
+                <li>115 automated checks passed.</li>
+                <li>Published after my approval.</li>
+              </ul></div>
+            </div>
+          </li>
+          <li class="tl-stage">
+            <p class="tl-step">Stage 4 · Task 3</p>
+            <h3>PawPilot landing page and these notes</h3>
+            <div class="tl-grid">
+              <div><h4>My prompt asked for</h4><ul>
+                <li>A landing page selling a generic version of the product to independent Irish daycares, with exact copy, three steps, the demo link, the proposed price and one waiting-list action.</li>
+                <li>A form that sends and stores nothing and says so.</li>
+                <li>This notes page, and checks at 320, 375, 390, 430 and 768px and on desktop.</li>
+              </ul></div>
+              <div><h4>Testing and result</h4><ul>
+                <li>84 automated checks passed, including proof that the form makes no network request and stores nothing.</li>
+                <li>Problems found and fixed: the hero phone image covered the dog photo on mobile, a laptop image overflowed at 768px, and two sets of links were under 44px.</li>
+                <li>Published after my approval.</li>
+              </ul></div>
+            </div>
+          </li>
+          <li class="tl-stage">
+            <p class="tl-step">Stage 5 · Task 3</p>
+            <h3>My review of these notes</h3>
+            <div class="tl-grid">
+              <div><h4>My review notes</h4><ul>
+                <li>The notes should show clearly what I wrote, reviewed and asked to be improved.</li>
+                <li>The development and testing record should follow the order of the work.</li>
+              </ul></div>
+              <div><h4>What changed</h4><ul>
+                <li>My role is stated at each stage, and the assessment is labelled as a self-assessment.</li>
+                <li>This timeline replaced a shorter summary.</li>
+              </ul></div>
+            </div>
+          </li>
+          <li class="tl-stage tl-next">
+            <p class="tl-step">Next</p>
+            <h3>Physical phone test</h3>
+            <p>Still to be completed: a test of the full workflow on my own phone, recorded using the guidance in section L.</p>
+          </li>
+        </ol>
       </section>
 
       <!-- L -->
       <section class="n-section" id="testing" aria-labelledby="testing-title">
         <p class="n-kicker">L</p>
         <h2 id="testing-title">Alpha testing and improvement record</h2>
-        <p>A worked example of how testing can be documented. Each statement is marked as one of three types:</p>
+        <p>A record of how I tested and improved the alpha. I specified the checks in my prompts and reviewed every result; the automated checks themselves were run by the AI tool. The stage-by-stage history is in section K; this section records the testing method and the two main issues in detail. Each statement is marked as one of three types:</p>
         <ul style="list-style:none;padding:0"><li><span class="status status-pass">Verified</span> Confirmed by code review or automated browser test.</li><li><span class="status status-ill">Illustrative</span> Example wording for a physical-phone test.</li><li><span class="status status-open">Not yet tested</span> Needs a real device.</li></ul>
 
         <h3>Test objective</h3>
@@ -301,9 +374,9 @@
         <p class="note">This shows how a test would be recorded. It is not a claim that a physical test was completed.</p>
 
         <h3>Issue 1: Alternative booking dates <span class="status status-pass">Verified</span></h3>
-        <p>An earlier technical review identified a mismatch between the alternative-date search and the calendar navigation. The search could consider dates up to 60 days ahead, while the calendar navigation was restricted to four weeks. This could result in a suggested date that the user could not easily reach.</p>
+        <p>When I reviewed the first version, I found a mismatch between the alternative-date search and the calendar navigation. The search could consider dates up to 60 days ahead, while the calendar navigation was restricted to four weeks. This could result in a suggested date that the user could not easily reach.</p>
         <p><strong>Why this matters.</strong> Staff need to act on a suggested date immediately, particularly when taking bookings while dealing with dogs and owners.</p>
-        <p><strong>Improvement requested:</strong> suggested dates must be reachable, calendar navigation must stay consistent, the displayed date and booking date must match, and the app must explain why a date was offered.</p>
+        <p><strong>Improvement I requested:</strong> suggested dates must be reachable, calendar navigation must stay consistent, the displayed date and booking date must match, and the app must explain why a date was offered.</p>
         <p><strong>Implemented correction (from the current source).</strong></p>
         <ul>
           <li>The booking window is defined once as four weeks (today plus 27 days). Alternative dates are only searched inside that window, and a booking beyond it is refused with a reason.</li>
@@ -313,9 +386,9 @@
         </ul>
 
         <h3>Issue 2: Save confirmation <span class="status status-pass">Verified</span></h3>
-        <p>An earlier technical review identified a risk that the application could show a successful booking or activity update even if localStorage failed. The storage function could catch an error while the calling function still continued to show success.</p>
+        <p>In the same review, I identified a risk that the application could show a successful booking or activity update even if localStorage failed. The storage function could catch an error while the calling function still continued to show success.</p>
         <p><strong>Why this matters.</strong> Staff must be able to trust that a booking or daily activity has actually been recorded.</p>
-        <p><strong>Improvement requested:</strong> storage operations report success or failure, success messages appear only when the save succeeds, failure gets clear feedback, and nothing gives a misleading confirmation.</p>
+        <p><strong>Improvement I requested:</strong> storage operations report success or failure, success messages appear only when the save succeeds, failure gets clear feedback, and nothing gives a misleading confirmation.</p>
         <p><strong>Implemented correction (from the current source).</strong></p>
         <ul>
           <li>The save function writes the data, reads it back, and reports success only if the stored copy matches.</li>
@@ -328,14 +401,14 @@
         <p class="note">An illustrative observation based on the earlier confirmed code issue, not a recorded user comment.</p>
 
         <h3>Example: What changed <span class="status status-pass">Verified</span></h3>
-        <p>The development prompts asked for booking-date consistency and honest storage confirmation. Both corrections are present in the current source and are described under Issue 1 and Issue 2 above. The calendar now moves directly to a selected suggestion, which addresses the confusion described in the example.</p>
+        <p>My improvement prompts asked for booking-date consistency and honest storage confirmation. I checked both corrections in the current source; they are described under Issue 1 and Issue 2 above. The calendar now moves directly to a selected suggestion, which addresses the confusion described in the example.</p>
 
         <h3>Retest procedure</h3>
-        <p>Outcomes below come from the automated browser test suite (headless Chrome at simulated phone widths), run against the same code as the live demo. None of these steps has yet been confirmed on a physical phone.</p>
+        <p>I asked for each of these steps to be tested after every change. The outcomes below come from the automated browser test suite (headless Chrome at simulated phone widths), run by the AI tool against the same code as the live demo, and reviewed by me. None of these steps has yet been confirmed on a physical phone.</p>
         <div class="table-wrap">
           <table>
             <caption class="sr-only">Retest steps and outcomes</caption>
-            <thead><tr><th scope="col">Step</th><th scope="col">Automated browser test</th><th scope="col">Physical phone</th></tr></thead>
+            <thead><tr><th scope="col">Step</th><th scope="col">Automated browser test (run by AI tool, reviewed by me)</th><th scope="col">Physical phone</th></tr></thead>
             <tbody>
               <tr><td>Reset fictional sample data.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
               <tr><td>Select a fully booked day.</td><td><span class="status status-pass">Pass</span></td><td><span class="status status-open">Not yet tested</span></td></tr>
@@ -375,8 +448,8 @@
       <section class="n-section" id="assessment" aria-labelledby="assessment-title">
         <p class="n-kicker">M</p>
         <h2 id="assessment-title">Application assessment and lessons learned</h2>
-        <p>An illustrative review of the Task 2 application. This is an independent provisional assessment, not an official lecturer grade.</p>
-        <div class="score"><b>47/50</b><span class="tag">Provisional assessment</span></div>
+        <p>My own review of the Task 2 application. This is a provisional self-assessment, not an official lecturer grade.</p>
+        <div class="score"><b>47/50</b><span class="tag">Provisional self-assessment</span></div>
         <p class="note">Subject to confirmation of physical-device testing and the implemented corrections.</p>
         <div class="table-wrap">
           <table>
@@ -409,7 +482,7 @@
           <li>Full workflow verification on a physical phone.</li>
           <li>Clear disclosure that the owner preview is not secure authentication.</li>
         </ul>
-        <p>The first, second, third and fifth points were addressed in later iterations (see sections K and L). Physical-phone verification is still outstanding.</p>
+        <p>The first, second, third and fifth points were addressed in stages 2 and 3 (see sections K and L). Physical-phone verification is still outstanding.</p>
         <h3>Lessons for future development</h3>
         <ul>
           <li>Build the required workflows before adding visual polish.</li>
@@ -442,7 +515,7 @@
       <section class="n-section" id="ai" aria-labelledby="ai-title">
         <p class="n-kicker">O</p>
         <h2 id="ai-title">AI-assisted development</h2>
-        <p>AI tools supported coding, design iteration and technical review. The application was developed through an initial build prompt and subsequent correction prompts, with automated browser tests run after each stage. The same approach was used to draft and check this website. The full chat history is not reproduced here.</p>
+        <p>AI tools supported coding, design iteration and technical review. I wrote the initial build prompt and the two improvement prompts, decided what needed fixing, reviewed the screenshots and test results, and approved each version before it was published. The AI tool wrote the code and ran the automated browser tests at my request. The same approach was used to draft and check this website. The full chat history is not reproduced here.</p>
         <p>No customer interviews, surveys or completed physical-phone tests were carried out for this project, and none are claimed. The competitor research in section G is based on the companies' own websites.</p>
       </section>
     </div>

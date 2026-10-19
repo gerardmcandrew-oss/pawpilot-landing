@@ -294,3 +294,18 @@ td.num,th.num{text-align:right;white-space:nowrap}
 .score{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:12px}
 .score b{font-family:var(--serif);font-size:3rem;color:var(--forest);line-height:1}
 .notes-top-link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:700;text-decoration:none}
+
+/* Build and review timeline */
+.tl-stages{list-style:none;margin:20px 0 0!important;padding:0!important;position:relative;max-width:none!important}
+.tl-stages::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:var(--sage);border-radius:2px}
+.tl-stage{position:relative;margin:0 0 18px!important;padding:18px 18px 18px 20px;margin-left:40px!important;border-radius:18px;background:#fff;border:1px solid var(--line)}
+.tl-stage::before{content:"";position:absolute;left:-33px;top:22px;width:14px;height:14px;border-radius:50%;background:var(--emerald);box-shadow:0 0 0 4px var(--ivory),0 0 0 6px var(--sage)}
+.tl-stage.tl-next{background:var(--ivory);border-style:dashed}
+.tl-stage.tl-next::before{background:#fff;border:2px solid var(--coral)}
+.tl-step{margin:0!important;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--emerald)}
+.tl-stage h3{margin:4px 0 0!important;font-size:1.2rem}
+.tl-grid{display:grid;gap:4px 28px;margin-top:6px}
+@media (min-width:760px){.tl-grid{grid-template-columns:1fr 1fr}}
+.tl-stage h4{margin:14px 0 4px;font-size:.92rem;color:var(--forest)}
+.tl-stage ul{font-size:.93rem;margin-top:4px!important}
+.tl-stage li+li{margin-top:5px}
